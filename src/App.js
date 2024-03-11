@@ -1,5 +1,5 @@
-import { useState, useEffect, lazy, Suspense, useReducer } from "react";
-import AppContext from "./AppContext";
+import { useEffect, lazy, Suspense, useReducer } from "react";
+import { AppContext, AppDispatchContext } from "./AppContext";
 import requestProducts from "./services/fetchProducts";
 import requestAddress from "./services/fetchAddress";
 import postOrder from "./services/postOrder";
@@ -11,9 +11,8 @@ const Address = lazy(() => import("./Address")); //dynamic  import
 const ProductList = lazy(() => import("./ProductList"));
 
 const App = () => {
-
-  const selectedProduct = useState([]);
   const [state, dispatch] = useReducer(reducer, initialState);
+
   const products = state.products;
   const address = state.address;
   const message = state.message
@@ -66,45 +65,28 @@ const App = () => {
     <Suspense fallback={<div className="loading-pane">
       <h2 className="loader">🌀</h2>
     </div>}>
-      <AppContext.Provider value={selectedProduct}>
-        <div className="wrapper">
-          <header>
-            {stepPosition === 0 && <h1>ProductCheckoutPage</h1>}
-            {stepPosition === 1 && <h3>Select Delivery Address</h3>}
-            {stepPosition === 2 && <h3>Billing page</h3>}
-          </header>
-          {stepPosition === 1 && <Address dispatch={dispatch}
-            address={address}
-            firstName={firstName}
-            lastName={lastName}
-            phone={phone}
-            selectedAddressId={selectedAddressId}
-            showModal={showModal} />}
-          {stepPosition === 0 && <ProductList
-            dispatch={dispatch}
-            products={products}
-            selectedProductsId={selectedProductsId}
-          />}
-          {
-            stepPosition === 2 && <Billing
-              dispatch={dispatch}
-              products={products}
-              selectedProductsId={selectedProductsId}
-              stepPosition={stepPosition}
-            />
-          }
-          {
-            (stepPosition === 3) && <Confirmation message={message} />
-          }
-          {(stepPosition === 3 && message.length === 0) ? <div className="loading-pane">
-            <h2 className="loader">🌀</h2>
-          </div> : <div className="btns">
-            {products.length > 0 && <button className="cbtn" onClick={handleContinue}>{stepPosition >= 3 ? "Go to Homepage" : "Continue"}</button>}
-            {stepPosition <= 0 ? null : <button className="cbtn" onClick={handleBack}>Back</button>}
-          </div>}
-        </div>
-      </AppContext.Provider>
-    </Suspense>
+      <AppContext.Provider value={state}>
+        <AppDispatchContext.Provider value={dispatch}>
+          <div className="wrapper">
+            <header>
+              {stepPosition === 0 && <h1>ProductCheckoutPage</h1>}
+              {stepPosition === 1 && <h3>Select Delivery Address</h3>}
+              {stepPosition === 2 && <h3>Billing page</h3>}
+            </header>
+            {stepPosition === 1 && <Address />}
+            {stepPosition === 0 && <ProductList />}
+            {stepPosition === 2 && <Billing />}
+            {(stepPosition === 3) && <Confirmation message={message} />}
+            {(stepPosition === 3 && message.length === 0) ? <div className="loading-pane">
+              <h2 className="loader">🌀</h2>
+            </div> : <div className="btns">
+              {products.length > 0 && <button className="cbtn" onClick={handleContinue}>{stepPosition >= 3 ? "Go to Homepage" : "Continue"}</button>}
+              {stepPosition <= 0 ? null : <button className="cbtn" onClick={handleBack}>Back</button>}
+            </div>}
+          </div>
+        </AppDispatchContext.Provider>
+      </AppContext.Provider >
+    </Suspense >
   );
 };
 export default App;

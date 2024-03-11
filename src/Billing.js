@@ -1,5 +1,10 @@
 import generateBill from "./utils/generateBills";
-const Billing = ({ dispatch, products, selectedProductsId, isError, stepPosition, errorMessage }) => {
+import { useContext } from 'react';
+import { AppContext, AppDispatchContext } from './AppContext';
+const Billing = () => {
+    const state = useContext(AppContext);
+    const dispatch = useContext(AppDispatchContext);
+    const { products, selectedProductsId } = state;
     const selectedProduct = products.filter(product => selectedProductsId.includes(product.id));
     const [totalPrice, totalDiscount, finalPrice, totalQuantity] = generateBill(selectedProduct);
     function handleOnClick() {
@@ -8,8 +13,8 @@ const Billing = ({ dispatch, products, selectedProductsId, isError, stepPosition
             stepPosition: 1
         })
     }
-    console.log("isError", isError);
-    console.log("stepPosition", stepPosition);
+    //  console.log("isError", isError);
+    /// console.log("stepPosition", stepPosition);
     return (
         <>
             <div className="search">

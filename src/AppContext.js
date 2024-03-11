@@ -1,3 +1,3 @@
 import { createContext } from "react"
-const AppContext = createContext();
-export default AppContext;
+export const AppContext = createContext(null);
+export const AppDispatchContext = createContext(null);

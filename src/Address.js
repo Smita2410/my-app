@@ -1,11 +1,14 @@
 import AddressRow from "./AddressRow";
 import Modal from "./Modal";
 import validateForm from "./utils/validateForm";
-import { useState } from "react";
+import { useState, useContext } from 'react';
+import { AppContext, AppDispatchContext } from './AppContext';
 
-const Address = ({ dispatch, address, selectedAddressId, showModal }) => {
+const Address = () => {
     const [errors, setErrors] = useState(null);
-
+    const state = useContext(AppContext);
+    const dispatch = useContext(AppDispatchContext);
+    const { address, selectedAddressId, showModal } = state;
     function handleSelectedAddress(index) {
         dispatch({
             type: 'select_address',

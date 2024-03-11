@@ -1,6 +1,11 @@
 import Product from './Product';
+import { useContext } from 'react';
+import { AppContext, AppDispatchContext } from './AppContext';
 
-const ProductList = ({ dispatch, products, selectedProductsId }) => {
+const ProductList = () => {
+    const state = useContext(AppContext);
+    const dispatch = useContext(AppDispatchContext);
+    const { products, selectedProductsId } = state;
     function handleSelectedProduct(item) {
         dispatch({
             type: 'changed_selection',
