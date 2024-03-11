@@ -12,14 +12,11 @@ const ProductList = lazy(() => import("./ProductList"));
 
 const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-
   const products = state.products;
-  const address = state.address;
   const message = state.message
-  const showModal = state.showModal;
-  const selectedProductsId = state.selectedProductsId;
-  const { firstName, lastName, phone, selectedAddressId } = state;
   let stepPosition = state.stepNumber;
+
+  /**fetch initial App load data */
   useEffect(() => {
     async function getInitialData() {
       const [res1, res2] = await Promise.all([requestProducts(), requestAddress()]);
