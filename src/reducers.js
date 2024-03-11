@@ -36,20 +36,19 @@ export function reducer(state, action) {
             };
         }
         case 'increment': {
-            console.log("state on increment", action.stepPosition);
+            console.log("state.stepNumber in increment", state.stepNumber);
             return {
                 ...state,
-                stepNumber: action.stepPosition < 4 ? action.stepPosition++ : 0
+                stepNumber: state.stepNumber < 3 ? state.stepNumber + 1 : 0
             }
         }
         case 'decrement': {
             return {
                 ...state,
-                stepNumber: action.stepPosition > 0 ? action.stepPosition-- : 0
+                stepNumber: state.stepNumber > 0 ? state.stepNumber - 1 : 0
             }
         }
         case 'toggle': {
-            console.log("inside toggle action object", action);
             return {
                 ...state,
                 showModal: action.showModal
