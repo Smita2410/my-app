@@ -1,6 +1,6 @@
 import Product from './Product';
 import { useContext } from 'react';
-import { AppContext, AppDispatchContext } from './AppContext';
+import { AppContext, AppDispatchContext } from '../../Reducers/AppContext';
 
 const ProductList = () => {
     const state = useContext(AppContext);

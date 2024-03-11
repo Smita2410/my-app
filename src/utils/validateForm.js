@@ -29,8 +29,8 @@ const validateForm = (contactObj, addressObj) => {
     if (!addressObj.state.trim()) {
         errors.state = 'State is required';
         isValid = false;
-    } else if (addressObj.state.length !== 2) {
-        errors.state = 'State must be 2 characters';
+    } else if (addressObj.state.length > 10 && addressObj.state.length < 2) {
+        errors.state = 'State must be between 2-10 characters';
         isValid = false;
     }
 

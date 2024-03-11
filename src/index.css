@@ -4,8 +4,7 @@
 }
 
 body {
-  background-color: #81a69b;
-  background-image: url(http://pets-images.dev-apis.com/pets/wallpaperB.jpg);
+  background-color: white;
   margin: 0;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -17,10 +16,10 @@ body {
 }
 .search {
   border-radius: 6px;
-  background: #faeff0;
+  background: white;
   box-shadow: 0px 0px 12px #aaa, -0px -0px 12px #fff;
   padding: 15px;
-  width: 700px;
+  width: 850px;
   margin: 0 auto;
   padding: 20px 0px 0px 0px;
   display: flex;
@@ -271,7 +270,7 @@ ul > h3{
   display: grid;
   grid-template-columns: 25px fit-content(200px) 1fr;
   grid-template-areas:"select image content";
-  grid-gap: 5px 20px;
+  grid-gap: 5px 32px;
   margin: 0.5em 1em;
   border: 1px solid lightgray;
   border-radius: 5px;
@@ -279,7 +278,7 @@ ul > h3{
 }
 .img {
   grid-area: image;
-  height: 111px;
+  height: 150px;
 }
 img{
   max-height: 100%;

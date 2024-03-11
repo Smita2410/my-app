@@ -1,6 +1,6 @@
-import generateBill from "./utils/generateBills";
+import generateBill from "../../utils/generateBills";
 import { useContext } from 'react';
-import { AppContext, AppDispatchContext } from './AppContext';
+import { AppContext, AppDispatchContext } from '../../Reducers/AppContext';
 const Billing = () => {
     const state = useContext(AppContext);
     const dispatch = useContext(AppDispatchContext);

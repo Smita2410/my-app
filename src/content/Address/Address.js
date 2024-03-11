@@ -1,8 +1,8 @@
 import AddressRow from "./AddressRow";
-import Modal from "./Modal";
-import validateForm from "./utils/validateForm";
+import Modal from "../../components/Modal";
+import validateForm from "../../utils/validateForm";
 import { useState, useContext } from 'react';
-import { AppContext, AppDispatchContext } from './AppContext';
+import { AppContext, AppDispatchContext } from '../../Reducers/AppContext';
 
 const Address = () => {
     const [errors, setErrors] = useState(null);

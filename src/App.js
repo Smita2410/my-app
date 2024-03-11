@@ -1,27 +1,24 @@
 import { useEffect, lazy, Suspense, useReducer } from "react";
-import { AppContext, AppDispatchContext } from "./AppContext";
+import { AppContext, AppDispatchContext } from "./Reducers/AppContext";
 import requestProducts from "./services/fetchProducts";
 import requestAddress from "./services/fetchAddress";
 import postOrder from "./services/postOrder";
-import { initialState, reducer } from "./reducers";
-import Billing from "./Billing";
-import Confirmation from "./ConfirmationPage"
+import { initialState, reducer } from "./Reducers/reducers";
+import Billing from "./content/Billing/Billing";
+import Confirmation from "./components/ConfirmationPage"
 
-const Address = lazy(() => import("./Address")); //dynamic  import
-const ProductList = lazy(() => import("./ProductList"));
+const Address = lazy(() => import("./content/Address/Address")); //dynamic  import
+const ProductList = lazy(() => import("./content/Product/ProductList"));
 
 const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const products = state.products;
   const message = state.message
   let stepPosition = state.stepNumber;
-  console.log("state", state);
-  console.log("stepPosition", stepPosition);
+
   /**fetch initial App load data */
   useEffect(() => {
-    console.log("in useEffect");
     async function getInitialData() {
-      console.log("is it calling this");
       const [res1, res2] = await Promise.all([requestProducts(), requestAddress()]);
       if (res1 && res2) {
         dispatch({
@@ -48,8 +45,8 @@ const App = () => {
   function handleContinue() {
     if (stepPosition === 2) {
       const res = postOrder();
-      res.then(data => dispatch({ type: 'message', message: data.message }))
-        .catch((error) => dispatch({ type: 'message', message: error.message }));
+      res.then(data => dispatch({ type: 'message', message: data }))
+        .catch((error) => dispatch({ type: 'message', message: error }));
     }
     dispatch({
       type: 'increment'
@@ -69,7 +66,7 @@ const App = () => {
         <AppDispatchContext.Provider value={dispatch}>
           <div className="wrapper">
             <header>
-              {stepPosition === 0 && <h1>ProductCheckoutPage</h1>}
+              {stepPosition === 0 && <h1>Product Checkout</h1>}
               {stepPosition === 1 && <h3>Select Delivery Address</h3>}
               {stepPosition === 2 && <h3>Billing page</h3>}
             </header>
@@ -80,8 +77,8 @@ const App = () => {
             {(stepPosition === 3 && message.length === 0) ? <div className="loading-pane">
               <h2 className="loader">🌀</h2>
             </div> : <div className="btns">
-              {products.length > 0 && <button className="cbtn" onClick={handleContinue}>{stepPosition >= 3 ? "Go to Homepage" : "Continue"}</button>}
-              {stepPosition <= 0 ? null : <button className="cbtn" onClick={handleBack}>Back</button>}
+              {products.length > 0 && <button className="cbtn" disabled={state.selectedProductsId.length === 0} onClick={handleContinue}>{stepPosition >= 3 ? "Go to Homepage" : "Continue"}</button>}
+              {stepPosition <= 0 || message.status === "200" ? null : <button className="cbtn" onClick={handleBack}>Back</button>}
             </div>}
           </div>
         </AppDispatchContext.Provider>

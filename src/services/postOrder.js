@@ -3,7 +3,7 @@
 async function postOrder() {
     try {
         const res = await fetch(
-            `https://dummyjson.com/http/404/Hello_Peter`); // response {"status": "200", "message": "OK"}
+            `https://dummyjson.com/http/200`); // response {"status": "200", "message": "OK"}
         if (!res.ok) {
             throw new Error(`Oops something went wrong ${res.status}`);
         }

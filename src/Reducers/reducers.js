@@ -35,6 +35,9 @@ export function reducer(state, action) {
                 selectedProductsId: newSelectedItemId
             };
         }
+        case 'select_address': {
+            return { ...state, selectedAddressId: action.selectedAddressId }
+        }
         case 'increment': {
             console.log("state.stepNumber in increment", state.stepNumber);
             return {

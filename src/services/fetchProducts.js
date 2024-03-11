@@ -1,5 +1,4 @@
 async function requestProducts() {
-    console.log("what about this");
     try {
         const res = await fetch(
             `https://dummyjson.com/carts/user/5`);
