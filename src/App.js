@@ -15,10 +15,13 @@ const App = () => {
   const products = state.products;
   const message = state.message
   let stepPosition = state.stepNumber;
-
+  console.log("state", state);
+  console.log("stepPosition", stepPosition);
   /**fetch initial App load data */
   useEffect(() => {
+    console.log("in useEffect");
     async function getInitialData() {
+      console.log("is it calling this");
       const [res1, res2] = await Promise.all([requestProducts(), requestAddress()]);
       if (res1 && res2) {
         dispatch({

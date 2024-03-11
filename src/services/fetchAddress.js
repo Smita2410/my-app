@@ -1,4 +1,5 @@
 async function requestAddress() {
+    console.log("And this");
     try {
         const res = await fetch(
             `https://dummyjson.com/users/5`);
