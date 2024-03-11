@@ -102,7 +102,7 @@ const App = () => {
           {(stepPosition === 3 && message.length === 0) ? <div className="loading-pane">
             <h2 className="loader">🌀</h2>
           </div> : <div className="btns">
-            {products.length > 0 && <button className="cbtn" onClick={handleContinue}>{stepPosition >= 3 ? "Go to Homepage" : "Continue"}</button>}
+            <button className="cbtn" onClick={handleContinue}>{stepPosition >= 3 ? "Go to Homepage" : "Continue"}</button>
             {stepPosition <= 0 ? null : <button className="cbtn" onClick={handleBack}>Back</button>}
           </div>}
         </div>
