@@ -7,14 +7,13 @@ const Billing = () => {
     const { products, selectedProductsId } = state;
     const selectedProduct = products.filter(product => selectedProductsId.includes(product.id));
     const [totalPrice, totalDiscount, finalPrice, totalQuantity] = generateBill(selectedProduct);
+
     function handleOnClick() {
         dispatch({
-            type: 'decrement',
-            stepPosition: 1
+            type: 'decrement_amount',
+            amount: 2
         })
     }
-    //  console.log("isError", isError);
-    /// console.log("stepPosition", stepPosition);
     return (
         <>
             <div className="search">

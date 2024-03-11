@@ -48,6 +48,12 @@ export function reducer(state, action) {
                 stepNumber: state.stepNumber > 0 ? state.stepNumber - 1 : 0
             }
         }
+        case 'decrement_amount': {
+            return {
+                ...state,
+                stepNumber: state.stepNumber - action.amount
+            }
+        }
         case 'toggle': {
             return {
                 ...state,
